@@ -29,6 +29,11 @@ class _HomeScreenState extends State<HomeScreen> {
       return;
     }
 
+    // ignore: unnecessary_null_comparison
+    if (response.body == null) {
+      return;
+    }
+
     final Map<String, dynamic> Listdata = json.decode(response.body);
     final List<GroceryItem> parsedata = [];
 
