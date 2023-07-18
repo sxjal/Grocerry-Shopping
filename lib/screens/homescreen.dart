@@ -46,12 +46,14 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _addItem() async {
-    await Navigator.of(context).push<GroceryItem>(
+    final response = await Navigator.of(context).push<GroceryItem>(
       MaterialPageRoute(builder: (context) {
         return const NewItem();
       }),
     );
-    _loaditems();
+   // _loaditems();
+    //fetching data from the newitem screen if the data is sent to the backend
+    //successfully in order to remove extra get request
   }
 
   @override
