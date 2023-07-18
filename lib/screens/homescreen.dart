@@ -54,6 +54,15 @@ class _HomeScreenState extends State<HomeScreen> {
    // _loaditems();
     //fetching data from the newitem screen if the data is sent to the backend
     //successfully in order to remove extra get request
+    if(response == null)
+    {
+      return;
+    }
+    else{
+      setState(() {
+        groceryItems.add(response);
+      });
+     
   }
 
   @override
