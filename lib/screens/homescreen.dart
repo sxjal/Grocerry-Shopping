@@ -15,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final List<GroceryItem> groceryItems = [];
+  List<GroceryItem> groceryItems = [];
 
   void _loaditems() async {
     final url = Uri.https(
@@ -25,8 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
     print(response);
     print(response.body);
 
-    final Map<String, Map<String, dynamic>> Listdata =
-        json.decode(response.body);
+    final Map<String, dynamic> Listdata = json.decode(response.body);
     final List<GroceryItem> parsedata = [];
 
     for (final item in Listdata.entries) {
@@ -41,6 +40,9 @@ class _HomeScreenState extends State<HomeScreen> {
         category: localcategory,
       ));
     }
+    setState(() {
+      groceryItems = parsedata;
+    });
   }
 
   void _addItem() async {
