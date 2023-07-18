@@ -37,7 +37,12 @@ class HomeScreen extends StatelessWidget {
               groceryItems[index].name,
               style: Theme.of(context).textTheme.bodyLarge!.copyWith(),
             ),
-            trailing: Text(groceryItems[index].quantity.toString()),
+            trailing: Text(
+              groceryItems[index].quantity.toString(),
+              style: TextStyle(
+                fontSize: 14,
+              ),
+            ),
           );
         },
         itemCount: groceryItems.length,
