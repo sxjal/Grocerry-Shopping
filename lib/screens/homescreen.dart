@@ -13,6 +13,22 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final List<GroceryItem> groceryItems = [];
 
+  void _addItem() async {
+    final newItem = await Navigator.of(context).push<GroceryItem>(
+      MaterialPageRoute(builder: (context) {
+        return const NewItem();
+      }),
+    );
+
+    if (newItem == null) {
+      return;
+    } else {
+      setState(() {
+        groceryItems.add(newItem);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,13 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) {
-                  return const NewItem();
-                }),
-              );
-            },
+            onPressed: _addItem,
           ),
         ],
       ),
