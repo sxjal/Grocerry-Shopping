@@ -32,6 +32,22 @@ class _NewItemState extends State<NewItem> {
                   return 'Please enter a valid item name';
                 },
               ),
+              Row(
+                children: [
+                  TextFormField(
+                    maxLength: 3,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      labelText: "Quantity",
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      return 'Please enter a valid quantity';
+                    },
+                  ),
+                  DropdownButtonFormField(items: items, onChanged: onChanged)
+                ],
+              ),
             ],
           ),
         ),
