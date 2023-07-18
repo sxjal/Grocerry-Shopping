@@ -22,7 +22,16 @@ class _NewItemState extends State<NewItem> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              TextFormField(),
+              TextFormField(
+                maxLength: 50,
+                decoration: const InputDecoration(
+                  labelText: "Item Name",
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  return 'Please enter a valid item name';
+                },
+              ),
             ],
           ),
         ),
