@@ -68,11 +68,22 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  void _removeitem(GroceryItem item) {
+  void _removeitem(GroceryItem item) async {
+    final index = groceryItems.indexOf(item);
+    setState(() {
+      groceryItems.remove(item);
+    });
+
     final url = Uri.https('flutter-prep-sxjal-default-rtdb.firebaseio.com',
         'shopping-list/${item.id}.json');
 
-    http.delete(url);
+    final response = await http.delete(url);
+
+    if (response.statusCode >= 400) {
+      setState(() {
+        groceryItems.insert(index, item);
+      });
+    }
   }
 
   @override
