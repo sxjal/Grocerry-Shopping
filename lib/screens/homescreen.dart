@@ -54,7 +54,11 @@ class _HomeScreenState extends State<HomeScreen> {
               child: ListView.builder(
               itemBuilder: (context, index) {
                 return Dismissible(
-                  key: ValueKey(),
+                  onDismissed: (direction) {
+                    // ignore: list_remove_unrelated_type
+                    groceryItems.remove(groceryItems[index]);
+                  },
+                  key: ValueKey(groceryItems[index].id),
                   child: ListTile(
                     leading: Container(
                       color: groceryItems[index].category.color,
