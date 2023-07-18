@@ -30,12 +30,18 @@ class _NewItemState extends State<NewItem> {
                   border: OutlineInputBorder(),
                 ),
                 validator: (value) {
-                  return 'Please enter a valid item name';
+                  if (value == null ||
+                      value.isEmpty ||
+                      value.trim().length == 1 ||
+                      value.trim().length > 50) {
+                    return 'Must be between 1 and 50 characters';
+                  }
+                  return null;
                 },
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
                     child: TextFormField(
@@ -55,10 +61,6 @@ class _NewItemState extends State<NewItem> {
                   Expanded(
                     child: DropdownButtonFormField(
                       borderRadius: BorderRadius.circular(4),
-                      decoration: const InputDecoration(
-                        labelText: "Category",
-                        border: OutlineInputBorder(),
-                      ),
                       items: [
                         for (final category in categories.entries)
                           DropdownMenuItem(
@@ -67,8 +69,8 @@ class _NewItemState extends State<NewItem> {
                               children: [
                                 Container(
                                   color: category.value.color,
-                                  width: 16,
-                                  height: 16,
+                                  width: 12,
+                                  height: 12,
                                 ),
                                 const SizedBox(width: 8),
                                 Text(category.value.title),
