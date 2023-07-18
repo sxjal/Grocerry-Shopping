@@ -42,8 +42,13 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: groceryItems.isEmpty
-          ? const Center(
-              child: Text("Try adding new items!"),
+          ? Center(
+              child: Text(
+                "Try adding new items!",
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      fontSize: 20,
+                    ),
+              ),
             )
           : Center(
               child: ListView.builder(
