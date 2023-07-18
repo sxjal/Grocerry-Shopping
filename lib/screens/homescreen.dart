@@ -71,6 +71,20 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Widget mainchild = Center(
+      child: Text(
+        "Try adding new items!",
+        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+              fontSize: 20,
+            ),
+      ),
+    );
+
+    if (_isloading) {
+      mainchild = const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text("Your Groceries"),
@@ -81,14 +95,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: _isloading
-          ? Center(
-              child: Container(
-                height: 50,
-                width: 50,
-                color: Colors.red,
-              ),
-            )
+      body: groceryItems.isEmpty
+          ? mainchild
           : Center(
               child: ListView.builder(
               itemBuilder: (context, index) {
