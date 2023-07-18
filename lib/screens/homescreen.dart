@@ -18,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   String? error;
   void _loaditems() async {
     final url = Uri.https(
-        'flutter-prep-default-rtdb.firebaseio.com', 'shopping-list.json');
+        'flutter-prep-sxjal-default-rtdb.firebaseio.com', 'shopping-list.json');
 
     final response = await http.get(url);
 
@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
         error = "Something is not right, Please try again later!";
       });
       return;
-    } 
+    }
 
     final Map<String, dynamic> Listdata = json.decode(response.body);
     final List<GroceryItem> parsedata = [];
