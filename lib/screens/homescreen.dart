@@ -1,6 +1,7 @@
 import "dart:convert";
 
 import "package:flutter/material.dart";
+import "package:flutter_shopping_list/data/categories.dart";
 import "package:flutter_shopping_list/models/grocery_item.dart";
 import "package:flutter_shopping_list/screens/newitem.dart";
 //import "package:flutter_shopping_list/models/grocery_item.dart";
@@ -24,7 +25,13 @@ class _HomeScreenState extends State<HomeScreen> {
     print(response);
     print(response.body);
 
-    final Listdata = json.decode(response.body);
+    final Map<String,Map<String,dynamic>> Listdata = json.decode(response.body);
+    final List<GroceryItem> parsedata = [];
+    
+    for(final item in Listdata.entries ){
+        final localcategory = categories.entries.firstWhere((element)=> element.value.title == item.value['category']);
+        parsedata.add(GroceryItem(id: item.key, name: item.value['name'], quantity: item.value['quantity'], category: ,));
+    }
   }
 
   void _addItem() async {
