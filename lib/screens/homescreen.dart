@@ -25,12 +25,21 @@ class _HomeScreenState extends State<HomeScreen> {
     print(response);
     print(response.body);
 
-    final Map<String,Map<String,dynamic>> Listdata = json.decode(response.body);
+    final Map<String, Map<String, dynamic>> Listdata =
+        json.decode(response.body);
     final List<GroceryItem> parsedata = [];
-    
-    for(final item in Listdata.entries ){
-        final localcategory = categories.entries.firstWhere((element)=> element.value.title == item.value['category']);
-        parsedata.add(GroceryItem(id: item.key, name: item.value['name'], quantity: item.value['quantity'], category: ,));
+
+    for (final item in Listdata.entries) {
+      final localcategory = categories.entries
+          .firstWhere(
+              (element) => element.value.title == item.value['category'])
+          .value;
+      parsedata.add(GroceryItem(
+        id: item.key,
+        name: item.value['name'],
+        quantity: item.value['quantity'],
+        category: localcategory,
+      ));
     }
   }
 
