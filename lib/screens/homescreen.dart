@@ -68,6 +68,13 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  void _removeitem(GroceryItem item) {
+    final url = Uri.https('flutter-prep-sxjal-default-rtdb.firebaseio.com',
+        'shopping-list/${item.id}.json');
+
+    http.delete(url);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -124,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   return Dismissible(
                     onDismissed: (direction) {
                       // ignore: list_remove_unrelated_type
-                      groceryItems.remove(groceryItems[index]);
+                      _removeitem(groceryItems[index]);
                     },
                     key: ValueKey(groceryItems[index].id),
                     child: ListTile(
