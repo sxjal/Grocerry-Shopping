@@ -28,11 +28,13 @@ class _HomeScreenState extends State<HomeScreen> {
         return const NewItem();
       }),
     );
-    final url = Uri.https(
-        'flutter-prep-sxjal-default-rtdb.firebaseio.com', 'shopping-list.json');
+    _loaditems();
+  }
 
-    final response = await http.get(url);
-    print(response);
+  @override
+  void initState() {
+    super.initState();
+    _loaditems();
   }
 
   @override
