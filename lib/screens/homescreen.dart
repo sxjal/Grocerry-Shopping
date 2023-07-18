@@ -20,39 +20,44 @@ class _HomeScreenState extends State<HomeScreen> {
     final url = Uri.https(
         'flutter-prep-sxjal-default-rtdb.firebaseio.com', 'shopping-list.json');
 
-    final response = await http.get(url);
+    try {
+      final response = await http.get(url);
 
-    if (response.statusCode >= 400) {
+      if (response.statusCode >= 400) {
+        setState(() {
+          error = "Something is not right, Please try again later!";
+        });
+        return;
+      }
+
+      // ignore: unnecessary_null_comparison
+      if (response.body == 'null') {
+        setState(() {
+          _isloading = false;
+        });
+        return;
+      }
+
+      final Map<String, dynamic> Listdata = json.decode(response.body);
+      final List<GroceryItem> parsedata = [];
+
+      for (final item in Listdata.entries) {
+        final localcategory = categories.entries
+            .firstWhere(
+                (element) => element.value.title == item.value['category'])
+            .value;
+        parsedata.add(GroceryItem(
+          id: item.key,
+          name: item.value['name'],
+          quantity: item.value['quantity'],
+          category: localcategory,
+        ));
+      }
       setState(() {
-        error = "Something is not right, Please try again later!";
+        _isloading = false;
+        groceryItems = parsedata;
       });
-      return;
-    }
-
-    // ignore: unnecessary_null_comparison
-    if (response.body == null) {
-      return;
-    }
-
-    final Map<String, dynamic> Listdata = json.decode(response.body);
-    final List<GroceryItem> parsedata = [];
-
-    for (final item in Listdata.entries) {
-      final localcategory = categories.entries
-          .firstWhere(
-              (element) => element.value.title == item.value['category'])
-          .value;
-      parsedata.add(GroceryItem(
-        id: item.key,
-        name: item.value['name'],
-        quantity: item.value['quantity'],
-        category: localcategory,
-      ));
-    }
-    setState(() {
-      _isloading = false;
-      groceryItems = parsedata;
-    });
+    } catch (e) {}
   }
 
   void _addItem() async {
