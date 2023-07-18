@@ -10,9 +10,14 @@ class NewItem extends StatefulWidget {
 
 class _NewItemState extends State<NewItem> {
   final _formKey = GlobalKey<FormState>();
+  var _enteredItem;
+  var _enteredQuantity = 1;
 
   void _saveItem() {
-    _formKey.currentState!.validate();
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      Navigator.of(context).pop();
+    }
   }
 
   @override
@@ -45,6 +50,7 @@ class _NewItemState extends State<NewItem> {
                   }
                   return null;
                 },
+                onSaved: (newValue) => _enteredItem = newValue,
               ),
               const SizedBox(width: 12),
               Row(
@@ -54,7 +60,7 @@ class _NewItemState extends State<NewItem> {
                   Expanded(
                     child: TextFormField(
                       //maxLength: 3,
-                      initialValue: 1.toString(),
+                      initialValue: _enteredQuantity.toString(),
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
                         labelText: "Quantity",
@@ -69,6 +75,8 @@ class _NewItemState extends State<NewItem> {
                         }
                         return null;
                       },
+                      onSaved: ((newValue) =>
+                          _enteredQuantity = int.tryParse(newValue!)!),
                     ),
                   ),
                   const SizedBox(width: 8),
