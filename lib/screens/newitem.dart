@@ -3,7 +3,6 @@ import "dart:convert";
 import "package:flutter/material.dart";
 import "package:flutter_shopping_list/data/categories.dart";
 import "package:flutter_shopping_list/models/category.dart";
-import "package:flutter_shopping_list/models/grocery_item.dart";
 import "package:http/http.dart" as http;
 
 class NewItem extends StatefulWidget {
@@ -19,13 +18,12 @@ class _NewItemState extends State<NewItem> {
   var _enteredQuantity = 1;
   var _selectedCategory = categories[Categories.vegetables];
 
-  void _saveItem() {
+  void _saveItem() async {
     if (_formKey.currentState!.validate()) {
-      print("buttonpressed");
       _formKey.currentState!.save();
       final url = Uri.https('flutter-prep-sxjal-default-rtdb.firebaseio.com',
           'shopping-list.json');
-      http.post(
+      final response = await http.post(
         url,
         headers: {
           'Content-Type': 'application/json',
@@ -38,7 +36,25 @@ class _NewItemState extends State<NewItem> {
           },
         ),
       );
+
+      //when we add await, dart automatically adds the then method internally and we get
+      //access to the reponse method.
+      //we could use this .then((value) => );
       //  Navigator.of(context).pop(
+
+      //everythingworked  response.statusCode == 200 || 201
+      //error 404, something went wrong
+      print("response $response");
+      print("body returns ${response.body}");
+      print("response int returns ${response.statusCode}");
+
+      //checking if the widget is still a part of the screen
+      //if not then we just return else we will execute pop method
+      if (!context.mounted) {
+        return;
+      }
+
+      Navigator.of(context).pop();
     }
   }
 
