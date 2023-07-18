@@ -41,29 +41,33 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: Center(
-          child: ListView.builder(
-        itemBuilder: (context, index) {
-          return ListTile(
-            leading: Container(
-              color: groceryItems[index].category.color,
-              width: 25,
-              height: 25,
-            ),
-            title: Text(
-              groceryItems[index].name,
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(),
-            ),
-            trailing: Text(
-              groceryItems[index].quantity.toString(),
-              style: const TextStyle(
-                fontSize: 14,
-              ),
-            ),
-          );
-        },
-        itemCount: groceryItems.length,
-      )),
+      body: groceryItems.isEmpty
+          ? const Center(
+              child: Text("Try adding new items!"),
+            )
+          : Center(
+              child: ListView.builder(
+              itemBuilder: (context, index) {
+                return ListTile(
+                  leading: Container(
+                    color: groceryItems[index].category.color,
+                    width: 25,
+                    height: 25,
+                  ),
+                  title: Text(
+                    groceryItems[index].name,
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(),
+                  ),
+                  trailing: Text(
+                    groceryItems[index].quantity.toString(),
+                    style: const TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                );
+              },
+              itemCount: groceryItems.length,
+            )),
     );
   }
 }
