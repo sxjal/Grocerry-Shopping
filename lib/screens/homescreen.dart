@@ -1,10 +1,17 @@
 import "package:flutter/material.dart";
-import "package:flutter_shopping_list/data/dummy_items.dart";
+import "package:flutter_shopping_list/models/grocery_item.dart";
 import "package:flutter_shopping_list/screens/newitem.dart";
 //import "package:flutter_shopping_list/models/grocery_item.dart";
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final List<GroceryItem> groceryItems = [];
 
   @override
   Widget build(BuildContext context) {
