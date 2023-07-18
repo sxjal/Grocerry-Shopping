@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_shopping_list/data/categories.dart";
+import "package:flutter_shopping_list/models/category.dart";
 
 class NewItem extends StatefulWidget {
   const NewItem({Key? key}) : super(key: key);
@@ -12,6 +13,7 @@ class _NewItemState extends State<NewItem> {
   final _formKey = GlobalKey<FormState>();
   var _enteredItem;
   var _enteredQuantity = 1;
+  var _selectedCategory = categories[Categories.vegetables];
 
   void _saveItem() {
     if (_formKey.currentState!.validate()) {
@@ -82,6 +84,7 @@ class _NewItemState extends State<NewItem> {
                   const SizedBox(width: 8),
                   Expanded(
                     child: DropdownButtonFormField(
+                      value: _selectedCategory,
                       borderRadius: BorderRadius.circular(4),
                       items: [
                         for (final category in categories.entries)
@@ -100,7 +103,11 @@ class _NewItemState extends State<NewItem> {
                             ),
                           ),
                       ],
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedCategory = value!;
+                        });
+                      },
                     ),
                   ),
                 ],
