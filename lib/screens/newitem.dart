@@ -39,7 +39,7 @@ class _NewItemState extends State<NewItem> {
                 children: [
                   Expanded(
                     child: TextFormField(
-                      maxLength: 3,
+                      //maxLength: 3,
                       initialValue: 1.toString(),
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
@@ -54,6 +54,11 @@ class _NewItemState extends State<NewItem> {
                   const SizedBox(width: 8),
                   Expanded(
                     child: DropdownButtonFormField(
+                      borderRadius: BorderRadius.circular(4),
+                      decoration: const InputDecoration(
+                        labelText: "Category",
+                        border: OutlineInputBorder(),
+                      ),
                       items: [
                         for (final category in categories.entries)
                           DropdownMenuItem(
@@ -73,6 +78,21 @@ class _NewItemState extends State<NewItem> {
                       ],
                       onChanged: (value) {},
                     ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text("Reset"),
+                  ),
+                  // const Spacer(),
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: const Text("Add Item"),
                   ),
                 ],
               ),
