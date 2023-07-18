@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_shopping_list/data/dummy_items.dart";
+import "package:flutter_shopping_list/screens/newitem.dart";
 //import "package:flutter_shopping_list/models/grocery_item.dart";
 
 class HomeScreen extends StatelessWidget {
@@ -10,6 +11,18 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Your Groceries"),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) {
+                  return const NewItem();
+                }),
+              );
+            },
+          ),
+        ],
       ),
       body: Center(
           child: ListView.builder(
