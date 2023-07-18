@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_shopping_list/models/grocery_item.dart";
 import "package:flutter_shopping_list/screens/newitem.dart";
 //import "package:flutter_shopping_list/models/grocery_item.dart";
+import "package:http/http.dart" as http;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -14,19 +15,15 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<GroceryItem> groceryItems = [];
 
   void _addItem() async {
-    final newItem = await Navigator.of(context).push<GroceryItem>(
+    await Navigator.of(context).push<GroceryItem>(
       MaterialPageRoute(builder: (context) {
         return const NewItem();
       }),
     );
+    final url = Uri.https(
+        'flutter-prep-sxjal-default-rtdb.firebaseio.com', 'shopping-list.json');
 
-    if (newItem == null) {
-      return;
-    } else {
-      setState(() {
-        groceryItems.add(newItem);
-      });
-    }
+    final response = await http.get(url);
   }
 
   @override
