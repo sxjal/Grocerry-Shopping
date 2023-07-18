@@ -21,9 +21,9 @@ class _NewItemState extends State<NewItem> {
 
   void _saveItem() {
     if (_formKey.currentState!.validate()) {
+      print("buttonpressed");
       _formKey.currentState!.save();
-      final url = Uri.https(
-          'https://flutter-prep-sxjal-default-rtdb.firebaseio.com',
+      final url = Uri.https('flutter-prep-sxjal-default-rtdb.firebaseio.com',
           'shopping-list.json');
       http.post(
         url,
@@ -38,9 +38,7 @@ class _NewItemState extends State<NewItem> {
           },
         ),
       );
-    //  Navigator.of(context).pop(
-        
-      );
+      //  Navigator.of(context).pop(
     }
   }
 
