@@ -15,14 +15,19 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   var _isloading = true;
   List<GroceryItem> groceryItems = [];
-
+  String? error;
   void _loaditems() async {
     final url = Uri.https(
-        'flutter-prep-sxjal-default-rtdb.firebaseio.com', 'shopping-list.json');
+        'flutter-prep-default-rtdb.firebaseio.com', 'shopping-list.json');
 
     final response = await http.get(url);
-    print(response);
-    print(response.body);
+
+    if (response.statusCode >= 400) {
+      setState(() {
+        error = "Something is not right, Please try again later!";
+      });
+      return;
+    } 
 
     final Map<String, dynamic> Listdata = json.decode(response.body);
     final List<GroceryItem> parsedata = [];
@@ -87,6 +92,20 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
       );
     }
+
+    if (error != null) {
+      mainchild = Center(
+        child: Text(
+          error!,
+          style: Theme.of(context)
+              .textTheme
+              .bodyLarge!
+              .copyWith(fontSize: 18, fontWeight: FontWeight.normal),
+          textAlign: TextAlign.center,
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Your Groceries"),
@@ -101,34 +120,36 @@ class _HomeScreenState extends State<HomeScreen> {
           ? mainchild
           : Center(
               child: ListView.builder(
-              itemBuilder: (context, index) {
-                return Dismissible(
-                  onDismissed: (direction) {
-                    // ignore: list_remove_unrelated_type
-                    groceryItems.remove(groceryItems[index]);
-                  },
-                  key: ValueKey(groceryItems[index].id),
-                  child: ListTile(
-                    leading: Container(
-                      color: groceryItems[index].category.color,
-                      width: 25,
-                      height: 25,
-                    ),
-                    title: Text(
-                      groceryItems[index].name,
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(),
-                    ),
-                    trailing: Text(
-                      groceryItems[index].quantity.toString(),
-                      style: const TextStyle(
-                        fontSize: 14,
+                itemBuilder: (context, index) {
+                  return Dismissible(
+                    onDismissed: (direction) {
+                      // ignore: list_remove_unrelated_type
+                      groceryItems.remove(groceryItems[index]);
+                    },
+                    key: ValueKey(groceryItems[index].id),
+                    child: ListTile(
+                      leading: Container(
+                        color: groceryItems[index].category.color,
+                        width: 25,
+                        height: 25,
+                      ),
+                      title: Text(
+                        groceryItems[index].name,
+                        style:
+                            Theme.of(context).textTheme.bodyLarge!.copyWith(),
+                      ),
+                      trailing: Text(
+                        groceryItems[index].quantity.toString(),
+                        style: const TextStyle(
+                          fontSize: 14,
+                        ),
                       ),
                     ),
-                  ),
-                );
-              },
-              itemCount: groceryItems.length,
-            )),
+                  );
+                },
+                itemCount: groceryItems.length,
+              ),
+            ),
     );
   }
 }
