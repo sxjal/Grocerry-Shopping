@@ -53,7 +53,13 @@ class _NewItemState extends State<NewItem> {
                         border: OutlineInputBorder(),
                       ),
                       validator: (value) {
-                        return 'Please enter a valid quantity';
+                        if (value == null ||
+                            value.isEmpty ||
+                            int.tryParse(value) == null ||
+                            int.tryParse(value)! <= 0) {
+                          return 'Must be a valid positive number';
+                        }
+                        return null;
                       },
                     ),
                   ),
