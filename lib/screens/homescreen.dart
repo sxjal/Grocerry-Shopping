@@ -14,6 +14,14 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final List<GroceryItem> groceryItems = [];
 
+  void _loaditems() async {
+    final url = Uri.https(
+        'flutter-prep-sxjal-default-rtdb.firebaseio.com', 'shopping-list.json');
+
+    final response = await http.get(url);
+    print(response);
+  }
+
   void _addItem() async {
     await Navigator.of(context).push<GroceryItem>(
       MaterialPageRoute(builder: (context) {
@@ -24,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
         'flutter-prep-sxjal-default-rtdb.firebaseio.com', 'shopping-list.json');
 
     final response = await http.get(url);
+    print(response);
   }
 
   @override
