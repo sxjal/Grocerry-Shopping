@@ -1,10 +1,8 @@
 import "dart:convert";
-
 import "package:flutter/material.dart";
 import "package:flutter_shopping_list/data/categories.dart";
 import "package:flutter_shopping_list/models/grocery_item.dart";
 import "package:flutter_shopping_list/screens/newitem.dart";
-//import "package:flutter_shopping_list/models/grocery_item.dart";
 import "package:http/http.dart" as http;
 
 class HomeScreen extends StatefulWidget {
@@ -15,6 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  var _isloading = true;
   List<GroceryItem> groceryItems = [];
 
   void _loaditems() async {
@@ -41,6 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ));
     }
     setState(() {
+      _isloading = false;
       groceryItems = parsedata;
     });
   }
@@ -51,18 +51,16 @@ class _HomeScreenState extends State<HomeScreen> {
         return const NewItem();
       }),
     );
-   // _loaditems();
+    // _loaditems();
     //fetching data from the newitem screen if the data is sent to the backend
     //successfully in order to remove extra get request
-    if(response == null)
-    {
+    if (response == null) {
       return;
-    }
-    else{
+    } else {
       setState(() {
         groceryItems.add(response);
       });
-     
+    }
   }
 
   @override
