@@ -57,7 +57,11 @@ class _HomeScreenState extends State<HomeScreen> {
         _isloading = false;
         groceryItems = parsedata;
       });
-    } catch (e) {}
+    } catch (e) {
+      setState(() {
+        error = "Something is not right, Please try again later!";
+      });
+    }
   }
 
   void _addItem() async {
