@@ -39,7 +39,7 @@ class HomeScreen extends StatelessWidget {
             ),
             trailing: Text(
               groceryItems[index].quantity.toString(),
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 14,
               ),
             ),
