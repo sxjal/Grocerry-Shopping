@@ -82,7 +82,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
     if (_isloading) {
       mainchild = const Center(
-        child: CircularProgressIndicator(),
+        child: CircularProgressIndicator(
+            // value: 2,
+            ),
       );
     }
     return Scaffold(
