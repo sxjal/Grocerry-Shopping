@@ -11,8 +11,8 @@ class NewItem extends StatefulWidget {
 class _NewItemState extends State<NewItem> {
   final _formKey = GlobalKey<FormState>();
 
-  void _saveItems() {
-    
+  void _saveItem() {
+    _formKey.currentState!.validate();
   }
 
   @override
@@ -46,6 +46,7 @@ class _NewItemState extends State<NewItem> {
                   return null;
                 },
               ),
+              const SizedBox(width: 12),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -101,12 +102,14 @@ class _NewItemState extends State<NewItem> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      _formKey.currentState!.reset();
+                    },
                     child: const Text("Reset"),
                   ),
                   // const Spacer(),
                   ElevatedButton(
-                    onPressed: _saveItems,
+                    onPressed: _saveItem,
                     child: const Text("Add Item"),
                   ),
                 ],
