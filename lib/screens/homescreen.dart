@@ -1,3 +1,5 @@
+import "dart:convert";
+
 import "package:flutter/material.dart";
 import "package:flutter_shopping_list/models/grocery_item.dart";
 import "package:flutter_shopping_list/screens/newitem.dart";
@@ -20,6 +22,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
     final response = await http.get(url);
     print(response);
+    print(response.body);
+
+    final Listdata = json.decode(response.body);
   }
 
   void _addItem() async {
