@@ -9,6 +9,12 @@ class NewItem extends StatefulWidget {
 }
 
 class _NewItemState extends State<NewItem> {
+  final _formKey = GlobalKey<FormState>();
+
+  void _saveItems() {
+    
+  }
+
   @override
   Widget build(context) {
     return Scaffold(
@@ -18,6 +24,7 @@ class _NewItemState extends State<NewItem> {
       body: Padding(
         padding: const EdgeInsets.all(12),
         child: Form(
+          key: _formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -99,7 +106,7 @@ class _NewItemState extends State<NewItem> {
                   ),
                   // const Spacer(),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: _saveItems,
                     child: const Text("Add Item"),
                   ),
                 ],
