@@ -3,6 +3,7 @@ import "dart:convert";
 import "package:flutter/material.dart";
 import "package:flutter_shopping_list/data/categories.dart";
 import "package:flutter_shopping_list/models/category.dart";
+import "package:flutter_shopping_list/models/grocery_item.dart";
 import "package:http/http.dart" as http;
 
 class NewItem extends StatefulWidget {
@@ -53,8 +54,16 @@ class _NewItemState extends State<NewItem> {
       if (!context.mounted) {
         return;
       }
+      final responseid = json.decode(response.body);
 
-      Navigator.of(context).pop();
+      // we will be not using a get request again to list the items as it is not required all over agian and again
+      //hence we will just wait for the item to be sent to the backend and then we will pop the item along with
+      //sending the data to the previous screen
+      Navigator.of(context).pop(GroceryItem(
+          id: responseid['name'],
+          name: _enteredItem,
+          quantity: _enteredQuantity,
+          category: _selectedCategory!));
     }
   }
 
